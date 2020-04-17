@@ -57,6 +57,7 @@ chmod +x linuxdeploy*.AppImage
 
 # configure AppImageUpdate
 export UPD_INFO="gh-releases-zsync|redeclipse-legacy|release|continous|Red_Eclipse_Legacy-*$ARCH.AppImage.zsync"
+export VERSION=$(git describe --tags)
 ./linuxdeploy-"$ARCH".AppImage --appdir AppDir --output appimage
 
 mv Red_Eclipse_Legacy*.AppImage "$OLD_CWD"
