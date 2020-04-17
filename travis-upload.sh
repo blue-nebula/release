@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# NOTE: do NOT call this script upload.sh if you do NOT want a infinite recursive loop downloading more and more upload.sh files...
+
 if [ "$TRAVIS" == "" ]; then
     echo "Error: this script is supposed to run on Travis CI"
     exit 1

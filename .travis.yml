@@ -14,4 +14,4 @@ matrix:
             - libsdl2-mixer-dev
             - zlib1g-dev
       script: bash -xe nix/build-appimage.sh
-      after_success: bash -xe ./upload.sh
+      after_success: bash -xe ./travis-upload.sh
