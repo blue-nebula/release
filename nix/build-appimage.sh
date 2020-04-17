@@ -56,7 +56,7 @@ wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/lin
 chmod +x linuxdeploy*.AppImage
 
 # configure AppImageUpdate
-export UPD_INFO="gh-releases-zsync|redeclipse-legacy|release|continous|Red_Eclipse_Legacy-*$ARCH.AppImage.zsync"
+export UPD_INFO="gh-releases-zsync|redeclipse-legacy|release|continuous|Red_Eclipse_Legacy-*$ARCH.AppImage.zsync"
 export VERSION=$(git describe --tags)
 ./linuxdeploy-"$ARCH".AppImage --appdir AppDir --output appimage
 
