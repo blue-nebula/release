@@ -15,3 +15,8 @@ matrix:
             - zlib1g-dev
       script: bash -xe nix/build-appimage.sh
       after_success: bash -xe ./travis-upload.sh
+
+notifications:
+  irc:
+    channels:
+      - "chat.freenode.net#re-legacy"
