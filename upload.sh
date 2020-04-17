@@ -1,6 +1,6 @@
 #! /bin/bash
 
-if [ "$TRAVIS_CI" == "" ]; then
+if [ "$TRAVIS" == "" ]; then
     echo "Error: this script is supposed to run on Travis CI"
     exit 1
 fi
