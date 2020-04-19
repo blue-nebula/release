@@ -60,4 +60,4 @@ export UPD_INFO="gh-releases-zsync|redeclipse-legacy|release|continuous|Red_Ecli
 export VERSION=$(git describe --tags)
 ./linuxdeploy-"$ARCH".AppImage --appdir AppDir --output appimage
 
-mv Red_Eclipse_Legacy*.AppImage "$OLD_CWD"
+mv Red_Eclipse_Legacy*.AppImage* "$OLD_CWD"
