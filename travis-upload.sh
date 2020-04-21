@@ -14,5 +14,9 @@ wget https://github.com/probonopd/uploadtool/raw/master/upload.sh
 
 # uploadtool "is giving up" if either file is missing; not sure why, it should just upload whatever it can
 for i in Red_Eclipse_Legacy*.AppImage* redeclipse*.zip; do
+    if [ ! -f "$i" ]; then
+        continue;
+    fi
+
     bash upload.sh "$i"
 done
