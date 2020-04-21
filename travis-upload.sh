@@ -12,4 +12,7 @@ if [ "$TRAVIS_BRANCH" != "$TRAVIS_TAG" ] && [ "$TRAVIS_BRANCH" != "master" ]; th
 
 wget https://github.com/probonopd/uploadtool/raw/master/upload.sh
 
-bash upload.sh Red_Eclipse_Legacy*.AppImage* redeclipse*.zip
+# uploadtool "is giving up" if either file is missing; not sure why, it should just upload whatever it can
+for i in Red_Eclipse_Legacy*.AppImage* redeclipse*.zip; do
+    bash upload.sh "$i"
+done
