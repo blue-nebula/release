@@ -1,2 +1,5 @@
 *.AppImage
 *.swp
+*.zip
+*.tar
+*.7z
