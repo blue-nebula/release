@@ -12,4 +12,4 @@ if [ "$TRAVIS_BRANCH" != "$TRAVIS_TAG" ] && [ "$TRAVIS_BRANCH" != "master" ]; th
 
 wget https://github.com/probonopd/uploadtool/raw/master/upload.sh
 
-bash upload.sh Red_Eclipse_Legacy*.AppImage*
+bash upload.sh Red_Eclipse_Legacy*.AppImage* redeclipse*.zip
