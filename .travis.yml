@@ -30,6 +30,7 @@ matrix:
 
     - name: macOS x86_64 native zipball
       env: ARCH=x86_64
+      os: osx
       addons:
         homebrew:
           update: true
