@@ -33,7 +33,7 @@ matrix:
       addons:
         homebrew:
           update: true
-            packages:
+          packages:
             - sdl2
             - sdl2_image
             - sdl2_mixer
