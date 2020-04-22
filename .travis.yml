@@ -28,6 +28,18 @@ matrix:
       script: bash -xe win/build-archive.sh
       after_success: bash -xe ./travis-upload.sh
 
+    - name: macOS x86_64 native zipball
+      env: ARCH=x86_64
+      addons:
+        homebrew:
+          update: true
+            packages:
+            - sdl2
+            - sdl2_image
+            - sdl2_mixer
+            - glew
+      script: bash -xe mac/build-archive.sh
+      after_success: bash -xe ./travis-upload.sh
 
 notifications:
   irc:
