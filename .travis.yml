@@ -28,7 +28,7 @@ matrix:
       script: bash -xe win/build-archive.sh
       after_success: bash -xe ./travis-upload.sh
 
-    - name: macOS x86_64 native zipball
+    - name: macOS universal .dmg
       env: ARCH=x86_64
       os: osx
       addons:
@@ -39,7 +39,7 @@ matrix:
             - sdl2_image
             - sdl2_mixer
             - glew
-      script: bash -xe mac/build-archive.sh
+      script: bash -xe mac/build-dmg.sh
       after_success: bash -xe ./travis-upload.sh
 
 notifications:
