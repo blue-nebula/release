@@ -33,6 +33,14 @@ OLD_CWD=$(realpath .)
 
 pushd "$BUILD_DIR"
 
+# first, we need to build macdylibbundler
+git clone https://github.com/auriamg/macdylibbundler
+pushd macdylibbundler
+make
+export PATH="$(realpath .):$PATH"
+popd
+
+# clone Red Eclipse with all the data
 git clone --recursive https://github.com/redeclipse-legacy/base.git
 
 cd base
@@ -54,7 +62,9 @@ cpack -G DragNDrop -V
 rm *.dmg
 
 # debugging
-find
+find .
+
+# move the auto-created .app to the current directory to make it easier to use
 
 # TODO: run macdylibbundler to bundle dependencies
 # TODO: copy all licenses to stay on the safe side
