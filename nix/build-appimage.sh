@@ -49,7 +49,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
 
 make -j"$NPROC"
 
-make install DESTDIR=AppDir
+make install DESTDIR=AppDir &>install.log
 
 wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-"$ARCH".AppImage
 

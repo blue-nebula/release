@@ -57,6 +57,6 @@ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../ci/"$ARCH"-w64-min
 
 make preinstall -j"$NPROC"
 
-cpack -G ZIP -V
+cpack -G ZIP
 
 mv *.zip "$OLD_CWD"
