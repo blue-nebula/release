@@ -106,19 +106,22 @@ fi
 
 make preinstall -j"$procs"
 
+# this is the name of the directory we will "install" to, as well as the created zip file's name
+DESTDIR=redeclipse-legacy-"$(git describe --tags)"-macos-"$ARCH"
+
 # install everything into a temporary FHS-style tree which we will later zip manually after having collected the deps
-make install DESTDIR=out &>install.log
+make install DESTDIR="$DESTDIR" &>install.log
 
 # now, we can use macdylibbundler to collect the deps
 # NOTE: THIS STEP DOES ONLY WORK ON MACOS PROPERLY
 # we could also patch the tool more (and provide search paths via -s for the osxcross libs), but it's easier to just run it on macOS
-dylibbundler -od -b -x out/bin/redeclipse-legacy_osx -d out/lib/
+dylibbundler -od -b -x "$DESTDIR"/bin/redeclipse-legacy_osx -d "$DESTDIR"/lib/
 
 # copy the license files from the bundled Windows libs dir... to be on the safe side
-cp ../src/bundled-libs/"${ARCH}"-w64-mingw32/lib/LICENSE* out/lib/
+cp ../src/bundled-libs/"${ARCH}"-w64-mingw32/lib/LICENSE* "$DESTDIR"/lib/
 
 # let's build the final zip archive
-zip -r redeclipse-legacy-$(git describe --tags)-macos-"$ARCH".zip out/* &>zip.log
+zip -r "$DESTDIR".zip "$DESTDIR"/* &>zip.log
 
 # move the build product back into the filesystem
 mv *.zip "$OLD_CWD"
