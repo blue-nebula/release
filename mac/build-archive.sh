@@ -47,41 +47,12 @@ pushd "$BUILD_DIR"
 git clone https://github.com/auriamg/macdylibbundler
 pushd macdylibbundler
 
-# we have to apply a minor patch: we need to be able to set the otool executable from an env var
-git apply <<\EOF
-diff --git a/src/DylibBundler.cpp b/src/DylibBundler.cpp
-index e7bf46b..6e359bf 100644
---- a/src/DylibBundler.cpp
-+++ b/src/DylibBundler.cpp
-@@ -71,7 +71,7 @@ void collectRpaths(const std::string& filename)
-         return;
-     }
- 
--    std::string cmd = "otool -l " + filename;
-+    std::string cmd = std::string(getenv("OTOOL")) + " -l " + filename;
-     std::string output = system_get_output(cmd);
- 
-     std::vector<std::string> lc_lines;
-@@ -199,7 +199,7 @@ void addDependency(std::string path, std::string filename)
- void collectDependencies(std::string filename, std::vector<std::string>& lines)
- {
-     // execute "otool -l" on the given file and collect the command's output
--    std::string cmd = "otool -l " + filename;
-+    std::string cmd = std::string(getenv("OTOOL")) + " -l " + filename;
-     std::string output = system_get_output(cmd);
- 
-     if(output.find("can't open file")!=std::string::npos or output.find("No such file")!=std::string::npos or output.size()<1)
-EOF
-
 make -j7
 
 # it just creates the binary here, so let's just add it to $PATH to be able to access it conveniently
 export PATH="$(realpath .):$PATH"
 
 popd
-
-# after having applied that patch above, we need to ensure $OTOOL is set or the whole thing will segfault
-export OTOOL="${OTOOL:-otool}"
 
 # now let's build the binaries and install them into the usual FHS-style directory tree
 git clone --recursive https://github.com/redeclipse-legacy/base.git
