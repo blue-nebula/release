@@ -2,6 +2,8 @@
 
 This repository provides all resources necessary to deploy release builds of Red Eclipse for the supported platforms (as of writing, Linux, macOS and Windows).
 
+### --> Check out our [download page](https://github.com/redeclipse-legacy/release/releases/continuous) <--
+
 
 ## Licensing
 
