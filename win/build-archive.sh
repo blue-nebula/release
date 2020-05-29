@@ -30,7 +30,7 @@ else
     NPROC=$(nproc)
 fi
 
-BUILD_DIR=$(mktemp -d -p "$TEMP_BASE" relegacy-build-XXXXXX)
+BUILD_DIR=$(mktemp -d -p "$TEMP_BASE" blue-nebula-build-XXXXXX)
 
 cleanup () {
     if [ -d "$BUILD_DIR" ]; then
@@ -46,7 +46,7 @@ OLD_CWD=$(readlink -f .)
 
 pushd "$BUILD_DIR"
 
-git clone --recursive https://github.com/redeclipse-legacy/base.git
+git clone --recursive https://github.com/blue-nebula/base.git
 
 cd base
 

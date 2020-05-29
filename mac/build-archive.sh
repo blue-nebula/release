@@ -24,9 +24,9 @@ fi
 # use RAM disk if possible (e.g., while cross-compiling)
 # RAM disk is not available on mac, therefore we use the system default there
 if [ ! -z "$TEMP_BASE" ]; then
-    BUILD_DIR=$(mktemp -d -p "$TEMP_BASE" relegacy-build-XXXXXX)
+    BUILD_DIR=$(mktemp -d -p "$TEMP_BASE" blue-nebula-build-XXXXXX)
 else
-    BUILD_DIR=$(mktemp -d relegacy-build-XXXXXX)
+    BUILD_DIR=$(mktemp -d blue-nebula-build-XXXXXX)
 fi
 
 cleanup () {
@@ -55,7 +55,7 @@ export PATH="$(realpath .):$PATH"
 popd
 
 # now let's build the binaries and install them into the usual FHS-style directory tree
-git clone --recursive https://github.com/redeclipse-legacy/base.git
+git clone --recursive https://github.com/blue-nebula/base.git
 
 cd base
 
@@ -78,7 +78,7 @@ fi
 make preinstall -j"$procs"
 
 # this is the name of the directory we will "install" to, as well as the created zip file's name
-DESTDIR=redeclipse-legacy-"$(git describe --tags)"-macos-"$ARCH"
+DESTDIR=blue-nebula-"$(git describe --tags)"-macos-"$ARCH"
 
 # install everything into a temporary FHS-style tree which we will later zip manually after having collected the deps
 make install DESTDIR="$DESTDIR" &>install.log
@@ -86,7 +86,7 @@ make install DESTDIR="$DESTDIR" &>install.log
 # now, we can use macdylibbundler to collect the deps
 # NOTE: THIS STEP DOES ONLY WORK ON MACOS PROPERLY
 # we could also patch the tool more (and provide search paths via -s for the osxcross libs), but it's easier to just run it on macOS
-dylibbundler -od -b -x "$DESTDIR"/bin/redeclipse-legacy_osx -d "$DESTDIR"/lib/
+dylibbundler -od -b -x "$DESTDIR"/bin/blue-nebula_osx -d "$DESTDIR"/lib/
 
 # copy the license files from the bundled Windows libs dir... to be on the safe side
 cp ../src/bundled-libs/"${ARCH}"-w64-mingw32/lib/LICENSE* "$DESTDIR"/lib/

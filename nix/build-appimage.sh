@@ -22,7 +22,7 @@ else
     NPROC=$(nproc)
 fi
 
-BUILD_DIR=$(mktemp -d -p "$TEMP_BASE" relegacy-build-XXXXXX)
+BUILD_DIR=$(mktemp -d -p "$TEMP_BASE" blue-nebula-build-XXXXXX)
 
 cleanup () {
     if [ -d "$BUILD_DIR" ]; then
@@ -38,7 +38,7 @@ OLD_CWD=$(readlink -f .)
 
 pushd "$BUILD_DIR"
 
-git clone --recursive https://github.com/redeclipse-legacy/base.git
+git clone --recursive https://github.com/blue-nebula/base.git
 
 cd base
 
@@ -56,8 +56,8 @@ wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/lin
 chmod +x linuxdeploy*.AppImage
 
 # configure AppImageUpdate
-export UPD_INFO="gh-releases-zsync|redeclipse-legacy|release|continuous|Red_Eclipse_Legacy-*$ARCH.AppImage.zsync"
+export UPD_INFO="gh-releases-zsync|blue-nebula|release|continuous|Blue_Nebula-*$ARCH.AppImage.zsync"
 export VERSION=$(git describe --tags)
 ./linuxdeploy-"$ARCH".AppImage --appdir AppDir --output appimage
 
-mv Red_Eclipse_Legacy*.AppImage* "$OLD_CWD"
+mv Blue_Nebula*.AppImage* "$OLD_CWD"

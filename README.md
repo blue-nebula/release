@@ -1,6 +1,6 @@
-# Red Eclipse Legacy releases
+# Blue Nebula releases
 
-This repository provides all resources necessary to deploy release builds of Red Eclipse for the supported platforms (as of writing, Linux, macOS and Windows).
+This repository provides all resources necessary to deploy release builds of Blue Nebula for the supported platforms (as of writing, Linux, macOS and Windows).
 
 ### --> Check out our [download page](https://github.com/redeclipse-legacy/release/releases/continuous) <--
 
