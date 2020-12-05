@@ -1,0 +1,78 @@
+name: Prerelease builds
+
+on: [push, pull_request]
+
+env:
+  ARCH: x86_64
+
+jobs:
+  appimage-x86_64:
+    name: AppImage x86_64
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev zlib1g-dev
+      - name: Build AppImage
+        run: bash -xe nix/build-appimage.sh
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: AppImage
+          path: Blue_Nebula*.AppImage*
+
+  win-zipball-cross:
+    name: Windows x86_64 zipball (cross build)
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: sudo apt-get install -y mingw-w64 g++-mingw-w64
+      - name: Build archive
+        run: bash -xe win/build-archive.sh
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Windows zipball
+          path: blue*.zip
+
+  macos-zipball:
+    name: macOS x86_64 native zipball
+    runs-on: macos-10.15
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: brew install coreutils sdl2 sdl2_image sdl2_mixer glew
+      - name: Build archive
+        run: bash -xe mac/build-archive.sh
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: macOS zipball
+          path: blue*.zip
+
+  upload:
+    name: Create release and upload artifacts
+    needs:
+      - appimage-x86_64
+      - win-zipball-cross
+      - macos-zipball
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+      - name: Inspect directory after downloading artifacts
+        run: ls -alFR
+      - name: Create release and upload artifacts
+        uses: marvinpinto/action-automatic-releases@latest
+        if: ${{ github.ref == 'refs/heads/master' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "continuous"
+          prerelease: true
+          title: "Continuous build"
+          files: |
+            **/Blue*.AppImage*
+            **/blue*.zip
