@@ -15,6 +15,11 @@ jobs:
         run: sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev zlib1g-dev
       - name: Build AppImage
         run: bash -xe nix/build-appimage.sh
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: AppImage
+          path: Blue_Nebula*.AppImage*
 
   win-zipball-cross:
     name: Windows x86_64 zipball (cross build)
@@ -25,6 +30,11 @@ jobs:
         run: sudo apt-get install -y mingw-w64 g++-mingw-w64
       - name: Build archive
         run: bash -xe win/build-archive.sh
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Windows zipball
+          path: blue*.zip
 
   macos-zipball:
     name: macOS x86_64 native zipball
@@ -35,3 +45,8 @@ jobs:
         run: brew install coreutils sdl2 sdl2_image sdl2_mixer glew
       - name: Build archive
         run: bash -xe mac/build-archive.sh
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: macOS zipball
+          path: blue*.zip
