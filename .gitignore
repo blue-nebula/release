@@ -1,4 +1,4 @@
-*.AppImage
+*.AppImage*
 *.swp
 *.zip
 *.tar
