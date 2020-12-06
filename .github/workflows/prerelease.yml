@@ -50,3 +50,26 @@ jobs:
         with:
           name: macOS zipball
           path: blue*.zip
+
+  upload:
+    name: Create release and upload artifacts
+    needs:
+      - appimage-x86_64
+      - win-zipball-cross
+      - macos-zipball
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+      - name: Create release and upload artifacts
+        uses: marvinpinto/action-automatic-releases@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "continuous"
+          prerelease: true
+          title: "Continuous build"
+          files: |
+            Blue*.AppImage*
+            blue*.zip
