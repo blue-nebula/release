@@ -73,5 +73,5 @@ jobs:
           prerelease: true
           title: "Continuous build"
           files: |
-            Blue*.AppImage*
-            blue*.zip
+            **/Blue*.AppImage*
+            **/blue*.zip
