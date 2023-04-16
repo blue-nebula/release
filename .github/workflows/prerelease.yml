@@ -8,7 +8,7 @@ env:
 jobs:
   appimage-x86_64:
     name: AppImage x86_64
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
@@ -23,7 +23,7 @@ jobs:
 
   win-zipball-cross:
     name: Windows x86_64 zipball (cross build)
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
