@@ -63,6 +63,8 @@ jobs:
         uses: actions/download-artifact@v2
       - name: Inspect directory after downloading artifacts
         run: ls -alFR
+      - name: Install dependencies
+        run: sudo apt-get install -y libfuse2
       - name: Create release and upload artifacts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
