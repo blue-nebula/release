@@ -1,7 +1,6 @@
 #! /bin/bash
 
-set -e
-set -x
+set -euxo pipefail
 
 case "$ARCH" in
     x86_64|amd64|win64)
@@ -23,7 +22,7 @@ fi
 
 # use RAM disk if possible (e.g., while cross-compiling)
 # RAM disk is not available on mac, therefore we use the system default there
-if [ ! -z "$TEMP_BASE" ]; then
+if [[ "${TEMP_BASE:-}" != "" ]]; then
     BUILD_DIR=$(mktemp -d -p "$TEMP_BASE" blue-nebula-build-XXXXXX)
 else
     BUILD_DIR=$(mktemp -d blue-nebula-build-XXXXXX)
@@ -37,9 +36,7 @@ cleanup () {
 
 trap cleanup EXIT
 
-# store repo root as variable
-REPO_ROOT=$(realpath $(dirname $(dirname "$0")))
-OLD_CWD=$(realpath .)
+OLD_CWD="$(realpath .)"
 
 pushd "$BUILD_DIR"
 
@@ -50,7 +47,8 @@ pushd macdylibbundler
 make -j7
 
 # it just creates the binary here, so let's just add it to $PATH to be able to access it conveniently
-export PATH="$(realpath .):$PATH"
+PATH="$(realpath .):$PATH"
+export PATH
 
 popd
 
@@ -95,4 +93,4 @@ cp ../src/bundled-libs/"${ARCH}"-w64-mingw32/lib/LICENSE* "$DESTDIR"/lib/
 zip -r "$DESTDIR".zip "$DESTDIR"/* &>zip.log
 
 # move the build product back into the filesystem
-mv *.zip "$OLD_CWD"
+mv ./*.zip "$OLD_CWD"

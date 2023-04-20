@@ -1,7 +1,6 @@
 #! /bin/bash
 
-set -e
-set -x
+set -euxo pipefail
 
 if [ "$ARCH" == "" ]; then
     ARCH=$(uname -m)
@@ -33,8 +32,7 @@ cleanup () {
 trap cleanup EXIT
 
 # store repo root as variable
-REPO_ROOT=$(readlink -f $(dirname $(dirname "$0")))
-OLD_CWD=$(readlink -f .)
+OLD_CWD="$(readlink -f .)"
 
 pushd "$BUILD_DIR"
 
@@ -57,7 +55,8 @@ chmod +x linuxdeploy*.AppImage
 
 # configure AppImageUpdate
 export UPD_INFO="gh-releases-zsync|blue-nebula|release|continuous|Blue_Nebula-*$ARCH.AppImage.zsync"
-export VERSION=$(git describe --tags)
+VERSION=$(git describe --tags)
+export VERSION
 ./linuxdeploy-"$ARCH".AppImage --appdir AppDir --output appimage
 
 mv Blue_Nebula*.AppImage* "$OLD_CWD"
