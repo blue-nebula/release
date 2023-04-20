@@ -55,6 +55,6 @@ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../ci/"$ARCH"-w64-min
 
 make preinstall -j"$NPROC"
 
-cpack -G ZIP
+cpack -G NSIS || cat _CPack_Packages/win64/NSIS/NSISOutput.log
 
-mv ./*.zip "$OLD_CWD"
+mv ./blue-nebula*win64.exe "$OLD_CWD"
