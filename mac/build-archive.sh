@@ -6,11 +6,8 @@ case "$ARCH" in
     x86_64|amd64|win64)
         export ARCH="x86_64"
         ;;
-    i386|i586|i686|win32)
-        export ARCH="i686"
-        ;;
     *)
-        echo "Error: \$ARCH unset, please export ARCH=... (e.g., i686, x86_64)"
+        echo "Error: \$ARCH unset, please export ARCH=... (e.g., x86_64)"
         exit 1
         ;;
 esac
